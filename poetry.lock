@@ -1473,7 +1473,7 @@ cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 
 [[package]]
 name = "qcore"
-version = "1.0.4"
+version = "1.0.6"
 description = "The codebase for running circuit QED experiments in qcrew's lab"
 optional = false
 python-versions = ">=3.8,<3.11"
@@ -1496,7 +1496,7 @@ qm-qua = "^1.1.3"
 type = "git"
 url = "https://github.com/Qcrew/qcore.git"
 reference = "HEAD"
-resolved_reference = "eacc30490212385b4e4b476ffd62f1438157df06"
+resolved_reference = "bb0a0314431f6cde1f161ff4ae3008f158a6c5ad"
 
 [[package]]
 name = "qm-octave"
