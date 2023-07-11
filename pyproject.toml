@@ -9,6 +9,7 @@ packages = [{include = "project_template"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
+qcore = {git = "https://github.com/Qcrew/qcore.git"}
 
 
 [build-system]
