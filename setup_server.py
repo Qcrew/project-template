@@ -5,7 +5,7 @@ NOTE this script must be on the same folder level as a yml config file named 'in
 
 from pathlib import Path
 
-from qcore.helpers.server import Server
+from qcore import Server
 
 if __name__ == "__main__":
     """
