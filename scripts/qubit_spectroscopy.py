@@ -5,7 +5,7 @@ from config.experiment_config import FOLDER, N, FREQ, I, Q, MAG, PHASE
 from qcore import Experiment, qua
 
 
-class ResonatorSpectroscopy(Experiment):
+class QubitSpectroscopy(Experiment):
     """ """
 
     ############################# DEFINE PRIMARY DATASETS ##############################
@@ -18,11 +18,13 @@ class ResonatorSpectroscopy(Experiment):
     # these Sweeps are uniquely associated with the Experiment subclass
     # these Sweeps must be specified at experiment runtime
 
-    primary_sweeps = ["resonator_frequency"]
+    primary_sweeps = ["qubit_frequency"]
 
     def sequence(self):
         """QUA sequence that defines this Experiment subclass"""
-        qua.update_frequency(self.resonator, self.resonator_frequency)
+        qua.update_frequency(self.qubit, self.qubit_frequency)
+        self.qubit.play(self.qubit_drive)
+        qua.align(self.qubit, self.resonator)
         self.resonator.measure(self.readout_pulse, (self.I, self.Q), ampx=self.ro_ampx)
         qua.wait(self.wait_time, self.resonator)
 
@@ -34,13 +36,16 @@ if __name__ == "__main__":
     # key: name of the Mode as defined by the Experiment subclass
     # value: name of the Mode as defined by the user in modes.yml
 
-    modes = {"resonator": "rr"}
+    modes = {"qubit": "qubit", "resonator": "rr"}
 
     ################################### PULSE MAP ######################################
     # key: name of the Pulse as defined by the Experiment subclass
     # value: name of the Pulse as defined by the user in modes.yml
 
-    pulses = {"readout_pulse": "rr_readout_pulse"}
+    pulses = {
+        "qubit_drive": "qubit_constant_pulse",
+        "readout_pulse": "rr_readout_pulse",
+    }
 
     ############################## CONTROL PARAMETERS ##################################
 
@@ -57,7 +62,7 @@ if __name__ == "__main__":
     N.num = 1000
 
     # set the qubit frequency sweep for this Experiment run
-    FREQ.name = "resonator_frequency"
+    FREQ.name = "qubit_frequency"
     FREQ.start = -55e6
     FREQ.stop = -45e6
     FREQ.num = 51
@@ -71,5 +76,5 @@ if __name__ == "__main__":
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################
 
-    expt = ResonatorSpectroscopy(FOLDER, modes, pulses, sweeps, datasets, **parameters)
+    expt = QubitSpectroscopy(FOLDER, modes, pulses, sweeps, datasets, **parameters)
     expt.run()

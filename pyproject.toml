@@ -5,7 +5,7 @@ description = "Extensible template for measurement scripting with qcore"
 authors = ["Qcrew <general.qcrew@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "project_template"}]
+packages = [{include = "config"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
