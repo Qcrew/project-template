@@ -5,8 +5,8 @@ from config.experiment_config import FOLDER, N, FREQ, I, Q, MAG, PHASE
 from qcore import Experiment, qua
 
 
-class QubitSpectroscopy(Experiment):
-    """ """
+class QubitSpec(Experiment):
+    """Qubit spectroscopy"""
 
     ############################# DEFINE PRIMARY DATASETS ##############################
     # these Datasets form the "raw" experimental data and will be streamed by the OPX
@@ -19,6 +19,10 @@ class QubitSpectroscopy(Experiment):
     # these Sweeps must be specified at experiment runtime
 
     primary_sweeps = ["qubit_frequency"]
+
+    ############################ DEFINE THE PULSE SEQUENCE #############################
+    # ensure that you import 'qua' from 'qcore' and not from 'qm' library
+    # attributes accessed via 'self' must be defined in 'if __name__ == "__main__"' code
 
     def sequence(self):
         """QUA sequence that defines this Experiment subclass"""
@@ -36,7 +40,10 @@ if __name__ == "__main__":
     # key: name of the Mode as defined by the Experiment subclass
     # value: name of the Mode as defined by the user in modes.yml
 
-    modes = {"qubit": "qubit", "resonator": "rr"}
+    modes = {
+        "qubit": "qubit",
+        "resonator": "rr",
+    }
 
     ################################### PULSE MAP ######################################
     # key: name of the Pulse as defined by the Experiment subclass
@@ -76,5 +83,5 @@ if __name__ == "__main__":
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################
 
-    expt = QubitSpectroscopy(FOLDER, modes, pulses, sweeps, datasets, **parameters)
+    expt = QubitSpec(FOLDER, modes, pulses, sweeps, datasets, **parameters)
     expt.run()
