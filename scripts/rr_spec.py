@@ -58,13 +58,13 @@ if __name__ == "__main__":
     # must include all primary sweeps defined by the Experiment subclass
 
     # set number of repetitions for this Experiment run
-    N.num = 1000
+    N.num = 20000
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "resonator_frequency"
     FREQ.start = -55e6
     FREQ.stop = -45e6
-    FREQ.num = 51
+    FREQ.num = 1001
 
     sweeps = [N, FREQ]
 

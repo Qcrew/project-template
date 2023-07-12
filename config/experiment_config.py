@@ -1,6 +1,5 @@
 """ """
 
-
 from qcore import Dataset, Sweep, Stage
 
 ################################# PROJECT FOLDER PATH ##################################
@@ -8,10 +7,13 @@ from qcore import Dataset, Sweep, Stage
 
 FOLDER = "C:/Users/qcrew/project-template/"
 
+MODES_CONFIG = FOLDER + "config/modes.yml"
+
 ######################## CONFIGURE STAGED RESOURCES IF NEEDED ##########################
 
-with Stage(FOLDER + "config/modes.yml") as stage:
-    qubit, rr = stage.get("qubit", "rr")
+with Stage(MODES_CONFIG) as stage:
+    QUBIT, RR = stage.get("qubit", "rr")
+(READOUT_PULSE,) = RR.get_operations("rr_readout_pulse")
 
 ################## DEFINE REUSABLE SWEEP (INDEPENDENT) VARIABLES #######################
 
@@ -34,14 +36,31 @@ FREQ = Sweep(
 
 I = Dataset(
     name="I",
-    save=True,
+    save=False,
     plot=False,
 )
 
 Q = Dataset(
     name="Q",
-    save=True,
+    save=False,
     plot=False,
+)
+
+ADC = Dataset(
+    name="adc",
+    stream=RR.ports["out"],
+    save=False,
+    plot=True,
+    plot_args={"plot_type": "line", "plot_err": False, "xlabel": "Time (ns)"},
+)
+
+ADC_FFT = Dataset(
+    name="adc_fft",
+    save=False,
+    plot=True,
+    datafn="fft",
+    datafn_args={"length": READOUT_PULSE.total_length},
+    plot_args={"plot_type": "line", "plot_err": False},
 )
 
 MAG = Dataset(
@@ -57,5 +76,5 @@ PHASE = Dataset(
     save=False,
     plot=True,
     datafn="phase",
-    datafn_args={"delay": 50e-8, "freq": rr.int_freq},
+    datafn_args={"freq": RR.int_freq, "delay": 50e-8},
 )

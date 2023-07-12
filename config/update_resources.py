@@ -6,6 +6,8 @@ from qcore.helpers import Stage
 from qcore.modes import *
 from qcore.pulses import *
 
+from config.experiment_config import MODES_CONFIG
+
 if __name__ == "__main__":
     """ """
 
@@ -13,7 +15,7 @@ if __name__ == "__main__":
     # remote = True means the Stage will connect with the Server and stage instruments
     # for remote = True to work, please run setup_server.bat first
 
-    with Stage(configpath=Path.cwd() / "modes.yml", remote=True) as stage:
+    with Stage(configpath=MODES_CONFIG, remote=True) as stage:
         # RETRIEVE INSTRUMENTS AND MODES
         lo_qubit, lo_rr = stage.get("lo_qubit", "lo_rr")
         qubit, rr = stage.get("qubit", "rr")
@@ -77,8 +79,9 @@ if __name__ == "__main__":
             ),
             ConstantReadoutPulse(
                 name="rr_readout_pulse",
-                length=1200,
+                length=800,
                 I_ampx=0.2,
-                pad=1000,
+                pad=0,
+                digital_marker=DigitalWaveform("ADC_ON"),
             ),
         ]
