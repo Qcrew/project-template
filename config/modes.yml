@@ -45,7 +45,7 @@
   rf_switch_on: false
 - !<Readout>
   name: rr
-  int_freq: -5.000000E+07
+  int_freq: 5.000000E+07
   lo_name: lo_rr
   mixer_offsets:
     I: 0.0
@@ -59,10 +59,10 @@
       I_ampx: 1.0
       Q_ampx: 0.0
       digital_marker: null
-      length: 4000
+      length: 1000
       pad: 0
       total_I_amp: 0.2
-      total_length: 4000
+      total_length: 1000
     rr_gaussian_pulse: !<GaussianPulse>
       name: rr_gaussian_pulse
       I_ampx: 1.0
@@ -75,7 +75,7 @@
       total_length: 600
     rr_readout_pulse: !<ConstantReadoutPulse>
       name: rr_readout_pulse
-      I_ampx: 0.2
+      I_ampx: 0.4
       Q_ampx: 0.0
       digital_marker: !<DigitalWaveform>
         name: ADC_ON
@@ -83,11 +83,11 @@
         - - 1
           - 0
       has_optimized_weights: false
-      length: 800
-      pad: 0
+      length: 1500
+      pad: 500
       threshold: null
-      total_I_amp: 0.04000000000000001
-      total_length: 800
+      total_I_amp: 0.08000000000000002
+      total_length: 2000
       weights:
       - 1.0
       - 0.0
@@ -100,4 +100,4 @@
   rf_switch: null
   rf_switch_on: false
   smearing: 0
-  tof: 180
+  tof: 24

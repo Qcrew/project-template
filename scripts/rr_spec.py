@@ -2,7 +2,7 @@
 
 from config.experiment_config import FOLDER, N, FREQ, I, Q, MAG, PHASE
 
-from qcore import Experiment, qua
+from qcore import Experiment, qua, Sweep
 
 
 class RRSpec(Experiment):
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 400000,
+        "wait_time": 20000,
         "ro_ampx": 1.0,
     }
 
@@ -58,13 +58,15 @@ if __name__ == "__main__":
     # must include all primary sweeps defined by the Experiment subclass
 
     # set number of repetitions for this Experiment run
-    N.num = 20000
+    N.num = 10000
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "resonator_frequency"
-    FREQ.start = -55e6
-    FREQ.stop = -45e6
-    FREQ.num = 1001
+    FREQ.start = 90e6
+    FREQ.stop = 110e6
+    FREQ.step = 0.1e6
+
+    RO_AMPX = Sweep(name="ro_ampx", points=[0.2, 0.4, 0.6, 0.8, 1.0])
 
     sweeps = [N, FREQ]
 

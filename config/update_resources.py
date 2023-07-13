@@ -21,10 +21,12 @@ if __name__ == "__main__":
         qubit, rr = stage.get("qubit", "rr")
 
         lo_qubit.frequency = 6e9
-        lo_qubit.power = 13
+        lo_qubit.power = 15.0
+        lo_qubit.output = True
 
-        lo_rr.frequency = 6e9
-        lo_rr.power = 13
+        lo_rr.frequency = 7.416e9
+        lo_rr.power = 15.0
+        lo_rr.output = True
 
         # CONFIGURE THE QUBIT PROPERTIES AND OPERATIONS
         qubit.configure(
@@ -60,14 +62,14 @@ if __name__ == "__main__":
             name="rr",
             lo_name="lo_rr",
             ports={"I": 3, "Q": 4, "out": 1},
-            int_freq=-50e6,
-            time_of_flight=180,
+            int_freq=50e6,
+            tof=24,
         )
 
         rr.operations = [
             ConstantPulse(
                 name="rr_constant_pulse",
-                length=4000,
+                length=1000,
                 I_ampx=1.0,
             ),
             GaussianPulse(
@@ -79,9 +81,9 @@ if __name__ == "__main__":
             ),
             ConstantReadoutPulse(
                 name="rr_readout_pulse",
-                length=800,
-                I_ampx=0.2,
-                pad=0,
+                length=1500,
+                I_ampx=0.4,
+                pad=500,
                 digital_marker=DigitalWaveform("ADC_ON"),
             ),
         ]

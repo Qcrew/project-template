@@ -37,8 +37,9 @@ if __name__ == "__main__":
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 50000,
+        "wait_time": 5000,
         "ro_ampx": 1.0,
+        "fetch_interval": 1,
     }
 
     ######################## SWEEP (INDEPENDENT) VARIABLES #############################
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     # must include all primary sweeps defined by the Experiment subclass
 
     # set number of repetitions for this Experiment run
-    N.num = 50000
+    N.num = 10000
 
     sweeps = [N]
 

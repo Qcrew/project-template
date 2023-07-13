@@ -38,12 +38,14 @@ I = Dataset(
     name="I",
     save=False,
     plot=False,
+    plot_args={"plot_err": False},
 )
 
 Q = Dataset(
     name="Q",
     save=False,
     plot=False,
+    plot_args={"plot_err": False},
 )
 
 ADC = Dataset(
@@ -68,13 +70,13 @@ MAG = Dataset(
     save=False,
     plot=True,
     datafn="mag",
-    fitfn="lorentzian",
+    fitfn="lorentzian_asymmetric",
 )
 
 PHASE = Dataset(
     name="Phase",
     save=False,
-    plot=True,
+    plot=False,
     datafn="phase",
     datafn_args={"freq": RR.int_freq, "delay": 50e-8},
 )
