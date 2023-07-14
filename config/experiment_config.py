@@ -11,8 +11,9 @@ MODES_CONFIG = FOLDER + "config/modes.yml"
 
 ######################## CONFIGURE STAGED RESOURCES IF NEEDED ##########################
 
-with Stage(MODES_CONFIG) as stage:
+with Stage(MODES_CONFIG, remote=True) as stage:
     QUBIT, RR = stage.get("qubit", "rr")
+    LO_QUBIT, LO_RR, SA = stage.get("lo_qubit", "lo_rr", "sa")
 (READOUT_PULSE,) = RR.get_operations("rr_readout_pulse")
 
 ################## DEFINE REUSABLE SWEEP (INDEPENDENT) VARIABLES #######################
@@ -37,15 +38,17 @@ FREQ = Sweep(
 I = Dataset(
     name="I",
     save=False,
+    save_args={"save_avg": False},
     plot=False,
-    plot_args={"plot_err": False},
+    plot_args={"plot_err": False, "plot_avg": True},
 )
 
 Q = Dataset(
     name="Q",
     save=False,
+    save_args={"save_avg": False},
     plot=False,
-    plot_args={"plot_err": False},
+    plot_args={"plot_err": False, "plot_avg": True},
 )
 
 ADC = Dataset(
@@ -53,7 +56,12 @@ ADC = Dataset(
     stream=RR.ports["out"],
     save=False,
     plot=True,
-    plot_args={"plot_type": "line", "plot_err": False, "xlabel": "Time (ns)"},
+    plot_args={
+        "plot_avg": True,
+        "plot_type": "line",
+        "plot_err": False,
+        "xlabel": "Time (ns)",
+    },
 )
 
 ADC_FFT = Dataset(
@@ -71,12 +79,15 @@ MAG = Dataset(
     plot=True,
     datafn="mag",
     fitfn="lorentzian_asymmetric",
+    plot_args={"plot_err": False},
 )
 
 PHASE = Dataset(
     name="Phase",
     save=False,
-    plot=False,
+    plot=True,
     datafn="phase",
-    datafn_args={"freq": RR.int_freq, "delay": 50e-8},
+    datafn_args={"delay": 2.792e-7, "freq": RR.int_freq, "unwrap": True},
+    fitfn="atan",
+    plot_args={"plot_err": False},
 )

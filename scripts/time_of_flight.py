@@ -39,7 +39,7 @@ if __name__ == "__main__":
     parameters = {
         "wait_time": 5000,
         "ro_ampx": 1.0,
-        "fetch_interval": 1,
+        "fetch_interval": 3,
     }
 
     ######################## SWEEP (INDEPENDENT) VARIABLES #############################
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     # must include all primary sweeps defined by the Experiment subclass
 
     # set number of repetitions for this Experiment run
-    N.num = 10000
+    N.num = 50000
 
     sweeps = [N]
 
@@ -64,9 +64,8 @@ if __name__ == "__main__":
         step=1 / READOUT_PULSE.total_length,
         units="GHz",
     )
-    ADC_FFT.initialize(axes=[N.sweep, freqs.sweep])
-
-    datasets = [ADC_FFT, ADC]
+    ADC_FFT.initialize(axes=[freqs.sweep])
+    datasets = [ADC, ADC_FFT]
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################
 

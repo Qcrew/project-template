@@ -1,7 +1,5 @@
 """ """
 
-from pathlib import Path
-
 from qcore.helpers import Stage
 from qcore.modes import *
 from qcore.pulses import *
@@ -20,11 +18,11 @@ if __name__ == "__main__":
         lo_qubit, lo_rr = stage.get("lo_qubit", "lo_rr")
         qubit, rr = stage.get("qubit", "rr")
 
-        lo_qubit.frequency = 6e9
+        lo_qubit.frequency = 4.26975e9
         lo_qubit.power = 15.0
         lo_qubit.output = True
 
-        lo_rr.frequency = 7.416e9
+        lo_rr.frequency = 7.466e9
         lo_rr.power = 15.0
         lo_rr.output = True
 
@@ -33,12 +31,13 @@ if __name__ == "__main__":
             name="qubit",
             lo_name="lo_qubit",
             ports={"I": 1, "Q": 2},
+            int_freq=50e6,
         )
 
         qubit.operations = [
             ConstantPulse(
                 name="qubit_constant_pulse",
-                length=1000,
+                length=10000,
                 I_ampx=1.0,
             ),
             GaussianPulse(
@@ -63,7 +62,7 @@ if __name__ == "__main__":
             lo_name="lo_rr",
             ports={"I": 3, "Q": 4, "out": 1},
             int_freq=50e6,
-            tof=24,
+            tof=272,
         )
 
         rr.operations = [
@@ -81,9 +80,9 @@ if __name__ == "__main__":
             ),
             ConstantReadoutPulse(
                 name="rr_readout_pulse",
-                length=1500,
-                I_ampx=0.4,
-                pad=500,
+                length=400,
+                I_ampx=1.0,
+                pad=400,
                 digital_marker=DigitalWaveform("ADC_ON"),
             ),
         ]

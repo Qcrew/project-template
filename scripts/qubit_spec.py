@@ -57,7 +57,7 @@ if __name__ == "__main__":
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 400000,
+        "wait_time": 50000,
         "ro_ampx": 1.0,
     }
 
@@ -66,13 +66,13 @@ if __name__ == "__main__":
     # must include all primary sweeps defined by the Experiment subclass
 
     # set number of repetitions for this Experiment run
-    N.num = 1000
+    N.num = 10000
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "qubit_frequency"
-    FREQ.start = -55e6
-    FREQ.stop = -45e6
-    FREQ.num = 51
+    FREQ.start = 158e6
+    FREQ.stop = 164e6
+    FREQ.num = 201
 
     sweeps = [N, FREQ]
 

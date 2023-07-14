@@ -1,22 +1,22 @@
 - !<Qubit>
   name: qubit
-  int_freq: -5.000000E+07
+  int_freq: 5.000000E+07
   lo_name: lo_qubit
   mixer_offsets:
-    I: 0.0
-    Q: 0.0
-    G: 0.0
-    P: 0.0
+    I: -0.015038659097626809
+    Q: -0.0019767482066527014
+    G: 0.1754186229780317
+    P: 0.0976141051389277
   operations:
     qubit_constant_pulse: !<ConstantPulse>
       name: qubit_constant_pulse
       I_ampx: 1.0
       Q_ampx: 0.0
       digital_marker: null
-      length: 1000
+      length: 10000
       pad: 0
       total_I_amp: 0.2
-      total_length: 1000
+      total_length: 10000
     qubit_gaussian_pulse: !<GaussianPulse>
       name: qubit_gaussian_pulse
       I_ampx: 1.0
@@ -50,9 +50,9 @@
   mixer_offsets:
     I: 0.0
     Q: 0.0
-    G: 0.0
-    P: 0.0
-    out: 0.0
+    G: 0.17265625
+    P: 0.03281250000000001
+    out: -0.011366410688920454
   operations:
     rr_constant_pulse: !<ConstantPulse>
       name: rr_constant_pulse
@@ -75,7 +75,7 @@
       total_length: 600
     rr_readout_pulse: !<ConstantReadoutPulse>
       name: rr_readout_pulse
-      I_ampx: 0.4
+      I_ampx: 1.0
       Q_ampx: 0.0
       digital_marker: !<DigitalWaveform>
         name: ADC_ON
@@ -83,11 +83,11 @@
         - - 1
           - 0
       has_optimized_weights: false
-      length: 1500
-      pad: 500
+      length: 400
+      pad: 400
       threshold: null
-      total_I_amp: 0.08000000000000002
-      total_length: 2000
+      total_I_amp: 0.2
+      total_length: 800
       weights:
       - 1.0
       - 0.0
@@ -100,4 +100,4 @@
   rf_switch: null
   rf_switch_on: false
   smearing: 0
-  tof: 24
+  tof: 272

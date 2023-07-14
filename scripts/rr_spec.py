@@ -49,29 +49,40 @@ if __name__ == "__main__":
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 20000,
-        "ro_ampx": 1.0,
+        "wait_time": 50000,
+        #"ro_ampx": 1.0,
     }
 
     ######################## SWEEP (INDEPENDENT) VARIABLES #############################
     # must include an outermost averaging Sweep named "N"
     # must include all primary sweeps defined by the Experiment subclass
 
+    ################################### 1D SWEEP #######################################
+
     # set number of repetitions for this Experiment run
-    N.num = 10000
+    N.num = 5000
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "resonator_frequency"
-    FREQ.start = 90e6
-    FREQ.stop = 110e6
-    FREQ.step = 0.1e6
+    FREQ.start = 40e6
+    FREQ.stop = 55e6
+    FREQ.num = 301
 
-    RO_AMPX = Sweep(name="ro_ampx", points=[0.2, 0.4, 0.6, 0.8, 1.0])
+    #sweeps = [N, FREQ]
 
-    sweeps = [N, FREQ]
+    ################################### 2D SWEEP #######################################
+
+    RO_AMPX = Sweep(name="ro_ampx", points=[0.1, 0.2, 0.3, 0.4, 0.5])
+    sweeps = [N, RO_AMPX, FREQ]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
+
+    MAG.axes = sweeps[1:]
+    PHASE.axes = sweeps[1:]
+
+    PHASE.inputs = ("I", "Q", "resonator_frequency")
+    PHASE.datafn_args = {"delay": 2.792e-7}
 
     datasets = [I, Q, MAG, PHASE]
 
