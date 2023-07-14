@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     parameters = {
         "wait_time": 50000,
-        #"ro_ampx": 1.0,
+        "ro_ampx": 0.1,
     }
 
     ######################## SWEEP (INDEPENDENT) VARIABLES #############################
@@ -68,12 +68,12 @@ if __name__ == "__main__":
     FREQ.stop = 55e6
     FREQ.num = 301
 
-    #sweeps = [N, FREQ]
+    # sweeps = [N, FREQ]
 
     ################################### 2D SWEEP #######################################
 
-    RO_AMPX = Sweep(name="ro_ampx", points=[0.1, 0.2, 0.3, 0.4, 0.5])
-    sweeps = [N, RO_AMPX, FREQ]
+    # RO_AMPX = Sweep(name="ro_ampx", points=[0.2])
+    sweeps = [N, FREQ]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass

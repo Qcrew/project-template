@@ -1,11 +1,11 @@
 """ """
 
-from config.experiment_config import FOLDER, N, ADC, ADC_FFT, READOUT_PULSE
+from config.experiment_config import FOLDER, N, ADC, ADC_FFT, READOUT_PULSE, RR
 
-from qcore import Experiment, qua, Sweep
+from qcore import Experiment, qua, Dataset, Sweep
 
 
-class TimeOfFlight(Experiment):
+class TimeOfFlightDemod(Experiment):
     """ """
 
     primary_datasets = ["adc"]
@@ -14,7 +14,8 @@ class TimeOfFlight(Experiment):
 
     def sequence(self):
         """the QUA pulse sequence for a Time Of Flight experiment"""
-        qua.reset_phase(self.resonator)
+        self.qubit.play(self.qubit_drive, ampx=self.qd_ampx)
+        qua.align(self.qubit, self.resonator)
         self.resonator.measure(self.readout_pulse, stream=self.adc, ampx=self.ro_ampx)
         qua.wait(self.wait_time, self.resonator)
 
@@ -26,20 +27,27 @@ if __name__ == "__main__":
     # key: name of the Mode as defined by the Experiment subclass
     # value: name of the Mode as defined by the user in modes.yml
 
-    modes = {"resonator": "rr"}
+    modes = {
+        "resonator": "rr",
+        "qubit": "qubit",
+    }
 
     ################################### PULSE MAP ######################################
     # key: name of the Pulse as defined by the Experiment subclass
     # value: name of the Pulse as defined by the user in modes.yml
 
-    pulses = {"readout_pulse": "rr_readout_pulse"}
+    pulses = {
+        "readout_pulse": "rr_readout_pulse",
+        "qubit_drive": "qubit_gaussian_pulse",
+    }
 
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
         "wait_time": 5000,
         "ro_ampx": 1.0,
-        "fetch_interval": 4,
+        "qd_ampx": 1.0,
+        "fetch_interval": 3,
     }
 
     ######################## SWEEP (INDEPENDENT) VARIABLES #############################
@@ -49,7 +57,8 @@ if __name__ == "__main__":
     # NOTE expts streaming raw adc data e.g. time of flight do not support >= 2D sweeps
 
     # set number of repetitions for this Experiment run
-    N.num = 10000
+    N.num = 50000
+
     sweeps = [N]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
@@ -65,10 +74,19 @@ if __name__ == "__main__":
         step=1 / READOUT_PULSE.total_length,
         units="GHz",
     )
-    ADC_FFT.initialize(axes=[freqs.sweep])
-    datasets = [ADC, ADC_FFT]
+    ADC_FFT.initialize(axes=[freqs])
+
+    ADC_DEMOD = Dataset(
+        name="adc_demod",
+        plot=True,
+        datafn="demod",
+        datafn_args={"freq": RR.int_freq, "length": READOUT_PULSE.total_length},
+        plot_args={"plot_type": "line", "plot_err": False},
+    )
+    ADC_DEMOD.initialize(axes=[2, READOUT_PULSE.total_length])  # 1: real, 2: imag
+    datasets = [ADC, ADC_FFT, ADC_DEMOD]
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################
 
-    expt = TimeOfFlight(FOLDER, modes, pulses, sweeps, datasets, **parameters)
+    expt = TimeOfFlightDemod(FOLDER, modes, pulses, sweeps, datasets, **parameters)
     expt.run()

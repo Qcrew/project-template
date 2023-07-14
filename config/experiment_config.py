@@ -88,6 +88,6 @@ PHASE = Dataset(
     plot=True,
     datafn="phase",
     datafn_args={"delay": 2.792e-7, "freq": RR.int_freq, "unwrap": True},
-    fitfn="atan",
+    #fitfn="atan",
     plot_args={"plot_err": False},
 )
