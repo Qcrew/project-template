@@ -38,13 +38,13 @@ if __name__ == "__main__":
 
     pulses = {
         "readout_pulse": "rr_readout_pulse",
-        "qubit_drive": "qubit_gaussian_pulse",
+        "qubit_drive": "qubit_constant_pi_pulse",
     }
 
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 5000,
+        "wait_time": 50000,
         "ro_ampx": 1.0,
         "qd_ampx": 1.0,
         "fetch_interval": 3,

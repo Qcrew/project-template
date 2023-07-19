@@ -50,14 +50,14 @@ if __name__ == "__main__":
     # value: name of the Pulse as defined by the user in modes.yml
 
     pulses = {
-        "qubit_drive": "qubit_constant_pulse",
+        "qubit_drive": "qubit_constant_pi_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
 
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 400000,
+        "wait_time": 100000,
         "ro_ampx": 1.0,
     }
 
@@ -70,9 +70,9 @@ if __name__ == "__main__":
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "resonator_frequency"
-    FREQ.start = -55e6
-    FREQ.stop = -45e6
-    FREQ.num = 51
+    FREQ.start = 48e6
+    FREQ.stop = 51e6
+    FREQ.num = 201
 
     QD_AMPX = Sweep(name="qubit_drive_ampx", points=[0.0, 1.0])
 
@@ -80,6 +80,12 @@ if __name__ == "__main__":
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
+
+    MAG.axes = sweeps[1:]
+    PHASE.axes = sweeps[1:]
+
+    PHASE.inputs = ("I", "Q", "resonator_frequency")
+    PHASE.datafn_args = {"delay": 2.792e-7}
 
     datasets = [I, Q, MAG, PHASE]
 

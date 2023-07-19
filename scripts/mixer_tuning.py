@@ -12,7 +12,7 @@ if __name__ == "__main__":
     with Stage(configpath=MODES_CONFIG, remote=True) as stage:
         #################### RETRIEVE RESOURCES FROM THE STAGE #########################
 
-        SA, QUBIT, RR = stage.get("sa", "qubit", "rr")
+        SA, QUBIT, QUBITEF, RR, CAV = stage.get("sa", "qubit", "qubitEF", "rr", "cav")
 
         ########### INITIALIZE THE MIXER TUNER WITH THE SPECTRUM ANALYZER ##############
 
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
         ############ SET THE MODE WHOSE LO OR SB LEAKAGE IS TO BE TUNED ################
 
-        mode = QUBIT
+        mode = CAV
 
         ########################### MINIMIZE LO LEAKAGE ################################
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
         # mixer_tuner.tune_lo(mode=mode, method="BF", **bf_params_lo)
 
         # user Nelder-Mead (NM) minimizer
-        mixer_tuner.tune_lo(mode=mode, method="NM")
+        # mixer_tuner.tune_lo(mode=mode, method="NM")
 
         ########################### MINIMIZE SB LEAKAGE ################################
 

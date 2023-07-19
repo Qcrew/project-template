@@ -5,8 +5,8 @@ from config.experiment_config import FOLDER, N, FREQ, I, Q, MAG, PHASE, RR
 from qcore import Experiment, qua, Sweep
 
 
-class QubitSpec(Experiment):
-    """Qubit spectroscopy"""
+class Rabi(Experiment):
+    """Power Rabi"""
 
     ############################# DEFINE PRIMARY DATASETS ##############################
     # these Datasets form the "raw" experimental data and will be streamed by the OPX
@@ -18,7 +18,7 @@ class QubitSpec(Experiment):
     # these Sweeps are uniquely associated with the Experiment subclass
     # these Sweeps must be specified at experiment runtime
 
-    primary_sweeps = ["qubit_frequency"]
+    primary_sweeps = ["qubit_pulse_amplitude"]
 
     ############################ DEFINE THE PULSE SEQUENCE #############################
     # ensure that you import 'qua' from 'qcore' and not from 'qm' library
@@ -26,8 +26,7 @@ class QubitSpec(Experiment):
 
     def sequence(self):
         """QUA sequence that defines this Experiment subclass"""
-        qua.update_frequency(self.qubit, self.qubit_frequency)
-        self.qubit.play(self.qubit_drive)
+        self.qubit.play(self.qubit_drive, ampx=self.qubit_pulse_amplitude)
         qua.align(self.qubit, self.resonator)
         self.resonator.measure(self.readout_pulse, (self.I, self.Q), ampx=self.ro_ampx)
         qua.wait(self.wait_time, self.resonator)
@@ -50,14 +49,14 @@ if __name__ == "__main__":
     # value: name of the Pulse as defined by the user in modes.yml
 
     pulses = {
-        "qubit_drive": "qubit_constant_pulse",
+        "qubit_drive": "qubit_constant_selective_pi_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
 
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 100000,
+        "wait_time": 50000,
         "ro_ampx": 1,
     }
 
@@ -68,13 +67,9 @@ if __name__ == "__main__":
     # set number of repetitions for this Experiment run
     N.num = 50000
 
-    # set the qubit frequency sweep for this Experiment run
-    FREQ.name = "qubit_frequency"
-    FREQ.start = 70e6
-    FREQ.stop = 90e6
-    FREQ.step = 0.1e6
-
-    sweeps = [N, FREQ]
+    # set the qubit amplitude sweep for this Experiment run
+    QD_AMPX = Sweep(name="qubit_pulse_amplitude", start=-1.8, stop=1.8, num=201)
+    sweeps = [N, QD_AMPX]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
@@ -87,5 +82,5 @@ if __name__ == "__main__":
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################
 
-    expt = QubitSpec(FOLDER, modes, pulses, sweeps, datasets, **parameters)
+    expt = Rabi(FOLDER, modes, pulses, sweeps, datasets, **parameters)
     expt.run()

@@ -7,7 +7,16 @@ from qcore.instruments import QM
 from qcore.pulses import ConstantPulse
 from qcore import Stage
 
-from config.experiment_config import QUBIT, RR, LO_RR, LO_QUBIT, SA
+from config.experiment_config import (
+    QUBIT,
+    QUBITEF,
+    RR,
+    CAV,
+    LO_RR,
+    LO_QUBIT,
+    LO_CAV,
+    SA,
+)
 
 
 def get_sweep(mode, lo, sa, **kwargs):
@@ -30,8 +39,8 @@ def get_sweep(mode, lo, sa, **kwargs):
 
 
 if __name__ == "__main__":
-    mode = RR
-    mode_lo = LO_RR
+    mode = CAV
+    mode_lo = LO_CAV
 
     sweep_parameters = {  # set sweep parameters
         "center": mode_lo.frequency,  # 1e9,
