@@ -15,48 +15,14 @@ if __name__ == "__main__":
 
     with Stage(configpath=MODES_CONFIG, remote=True) as stage:
         # RETRIEVE INSTRUMENTS AND MODES
-        lo_qubit, lo_rr = stage.get("lo_qubit", "lo_rr")
-        qubit, rr = stage.get("qubit", "rr")
+        lo_cav, lo_qubit, lo_rr = stage.get("lo_cav", "lo_qubit", "lo_rr")
+        cav, qubit, qubitEF, rr = stage.get("cav", "qubit", "qubitEF", "rr")
 
-        lo_qubit.frequency = 4.26975e9
-        lo_qubit.power = 15.0
-        lo_qubit.output = True
-
-        lo_rr.frequency = 7.466e9
+        # CONFIGURE THE RR PROPERTIES AND OPERATIONS
+        lo_rr.frequency = 7.465806e9 - 0.01e6
         lo_rr.power = 15.0
         lo_rr.output = True
 
-        # CONFIGURE THE QUBIT PROPERTIES AND OPERATIONS
-        qubit.configure(
-            name="qubit",
-            lo_name="lo_qubit",
-            ports={"I": 1, "Q": 2},
-            int_freq=50e6,
-        )
-
-        qubit.operations = [
-            ConstantPulse(
-                name="qubit_constant_pulse",
-                length=10000,
-                I_ampx=1.0,
-            ),
-            GaussianPulse(
-                name="qubit_gaussian_pulse",
-                sigma=200,
-                chop=4,
-                I_ampx=1.0,
-                Q_ampx=0.0,
-            ),
-            RampedConstantPulse(
-                name="qubit_cos_ramp_pulse",
-                ramp=10,
-                rampfn="cos",
-                length=20,
-                I_ampx=1.4,
-            ),
-        ]
-
-        # CONFIGURE THE RR PROPERTIES AND OPERATIONS
         rr.configure(
             name="rr",
             lo_name="lo_rr",
@@ -69,7 +35,7 @@ if __name__ == "__main__":
             ConstantPulse(
                 name="rr_constant_pulse",
                 length=1000,
-                I_ampx=1.0,
+                I_ampx=0.4,
             ),
             GaussianPulse(
                 name="rr_gaussian_pulse",
@@ -80,9 +46,121 @@ if __name__ == "__main__":
             ),
             ConstantReadoutPulse(
                 name="rr_readout_pulse",
-                length=400,
-                I_ampx=1.0,
-                pad=400,
+                length=2000,
+                I_ampx=0.25,
+                pad=1000,
                 digital_marker=DigitalWaveform("ADC_ON"),
+            ),
+        ]
+
+        # CONFIGURE THE QUBIT PROPERTIES AND OPERATIONS
+        lo_qubit.frequency = 4.6871e9
+        lo_qubit.power = 15.0
+        lo_qubit.output = True
+
+        qubit.configure(
+            name="qubit", 
+            lo_name="lo_qubit", 
+            ports={"I": 1, "Q": 2}, 
+            int_freq=79.75e6,
+        )
+
+        qubit.operations = [
+            ConstantPulse(
+                name="qubit_constant_pulse",
+                length=1000,
+                I_ampx=0.032,
+            ),
+            ConstantPulse(
+                name="qubit_constant_pi_pulse",
+                length=500,
+                I_ampx=0.064,
+            ),
+            ConstantPulse(
+                name="qubit_constant_pi2_pulse",
+                length=500,
+                I_ampx=0.032,
+            ),
+            ConstantPulse(
+                name="qubit_constant_selective_pi_pulse",
+                length=2000,
+                I_ampx=0.016,
+            ),
+            ConstantPulse(
+                name="qubit_constant_very_selective_pi_pulse",
+                length=4000,
+                I_ampx=0.008,
+            ),
+            GaussianPulse(
+                name="qubit_gaussian_pulse",
+                sigma=200,
+                chop=4,
+                I_ampx=0.032,
+                Q_ampx=0.0,
+            ),
+            RampedConstantPulse(
+                name="qubit_cos_ramp_pulse",
+                ramp=10,
+                rampfn="cos",
+                length=20,
+                I_ampx=1.4,
+            ),
+        ]
+
+        qubitEF.configure(
+            name="qubitEF",
+            lo_name="lo_qubit",
+            ports={"I": 1, "Q": 2},
+            # int_freq=-191.11e6,
+            # int_freq=-88.20e6,
+            int_freq=-127.20e6,
+        )
+
+        qubitEF.operations = [
+            ConstantPulse(
+                name="qubitEF_constant_pulse",
+                length=5000,
+                I_ampx=0.1,
+            ),
+            GaussianPulse(
+                name="qubitEF_gaussian_pulse",
+                sigma=200,
+                chop=4,
+                I_ampx=0.032,
+                Q_ampx=0.0,
+            ),
+            RampedConstantPulse(
+                name="qubitEF_cos_ramp_pulse",
+                ramp=10,
+                rampfn="cos",
+                length=20,
+                I_ampx=1.4,
+            ),
+        ]
+
+        # CONFIGURE THE CAVITY PROPERTIES AND OPERATIONS
+        lo_cav.frequency = 6.0e9
+        lo_cav.power = 15.0
+        lo_cav.output = True
+
+        cav.configure(
+            name="cav",
+            lo_name="lo_cav",
+            ports={"I": 7, "Q": 8},
+            int_freq=71.64e6,
+        )
+
+        cav.operations = [
+            ConstantPulse(
+                name="cavity_constant_pulse",
+                length=2000,
+                I_ampx=0.2,
+            ),
+            GaussianPulse(
+                name="cavity_gaussian_pulse",
+                sigma=200,
+                chop=4,
+                I_ampx=0.032,
+                Q_ampx=0.0,
             ),
         ]

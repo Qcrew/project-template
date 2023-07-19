@@ -12,8 +12,8 @@ MODES_CONFIG = FOLDER + "config/modes.yml"
 ######################## CONFIGURE STAGED RESOURCES IF NEEDED ##########################
 
 with Stage(MODES_CONFIG, remote=True) as stage:
-    QUBIT, RR = stage.get("qubit", "rr")
-    LO_QUBIT, LO_RR, SA = stage.get("lo_qubit", "lo_rr", "sa")
+    QUBIT, QUBITEF, RR, CAV = stage.get("qubit", "qubitEF", "rr", "cav")
+    LO_QUBIT, LO_RR, LO_CAV, SA = stage.get("lo_qubit", "lo_rr","lo_cav", "sa")
 (READOUT_PULSE,) = RR.get_operations("rr_readout_pulse")
 
 ################## DEFINE REUSABLE SWEEP (INDEPENDENT) VARIABLES #######################
@@ -39,7 +39,8 @@ I = Dataset(
     name="I",
     save=False,
     save_args={"save_avg": False},
-    plot=False,
+    plot=True,
+    # fitfn="exp_decay",
     plot_args={"plot_err": False, "plot_avg": True},
 )
 
@@ -47,7 +48,7 @@ Q = Dataset(
     name="Q",
     save=False,
     save_args={"save_avg": False},
-    plot=False,
+    plot=True,
     plot_args={"plot_err": False, "plot_avg": True},
 )
 
@@ -78,7 +79,7 @@ MAG = Dataset(
     save=False,
     plot=True,
     datafn="mag",
-    fitfn="lorentzian_asymmetric",
+    # fitfn="exp_decay",
     plot_args={"plot_err": False},
 )
 
@@ -88,6 +89,6 @@ PHASE = Dataset(
     plot=True,
     datafn="phase",
     datafn_args={"delay": 2.792e-7, "freq": RR.int_freq, "unwrap": True},
-    #fitfn="atan",
+    # fitfn="atan",
     plot_args={"plot_err": False},
 )
