@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     pulses = {
         "cavity_drive": "cavity_constant_pulse",
-        "qubit_pulse": "qubit_constant_very_selective_pi_pulse",
+        "qubit_pulse": "qubit_constant_selective_pi_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     # set the qubit frequency sweep for this Experiment run
 
-    DEL = Sweep(name="time_delay", start=10, stop=400000, step=1000, dtype=int)
+    DEL = Sweep(name="time_delay", start=10, stop=400000, step=2000, dtype=int)
     sweeps = [N, DEL]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################

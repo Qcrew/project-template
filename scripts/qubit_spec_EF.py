@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # value: name of the Pulse as defined by the user in modes.yml
 
     pulses = {
-        "qubit_pi_pulse": "qubit_constant_pulse",
+        "qubit_pi_pulse": "qubit_constant_pi_pulse",
         "qubitEF_drive": "qubitEF_constant_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 100000,
+        "wait_time": 200000,
         "ro_ampx": 1,
     }
 
@@ -76,9 +76,9 @@ if __name__ == "__main__":
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "qubitEF_frequency"
-    FREQ.start = -130e6
-    FREQ.stop = -126e6
-    FREQ.step = 0.01e6
+    FREQ.start = -135e6
+    FREQ.stop = -120e6
+    FREQ.step = 0.05e6
 
     sweeps = [N, FREQ]
 

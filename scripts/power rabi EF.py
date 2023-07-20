@@ -30,7 +30,9 @@ class RabiEF(Experiment):
         self.qubit.play(self.qubit_pi_pulse)
         qua.align(self.qubit, self.qubitEF)
         self.qubitEF.play(self.qubitEF_drive, ampx=self.qubitEF_pulse_amplitude)
-        qua.align(self.qubitEF, self.resonator)
+        qua.align(self.qubitEF, self.qubit)
+        self.qubit.play(self.qubit_pi_pulse)
+        qua.align(self.qubit, self.resonator)
         self.resonator.measure(self.readout_pulse, (self.I, self.Q), ampx=self.ro_ampx)
         qua.wait(self.wait_time, self.resonator)
 
@@ -53,8 +55,8 @@ if __name__ == "__main__":
     # value: name of the Pulse as defined by the user in modes.yml
 
     pulses = {
-        "qubit_pi_pulse": "qubit_constant_pulse",
-        "qubitEF_drive": "qubitEF_constant_pulse",
+        "qubit_pi_pulse": "qubit_constant_pi_pulse",
+        "qubitEF_drive": "qubitEF_constant_pi_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
 
@@ -73,7 +75,7 @@ if __name__ == "__main__":
     N.num = 50000
 
     # set the qubit amplitude sweep for this Experiment run
-    QD_AMPX = Sweep(name="qubitEF_pulse_amplitude", start=-1.8, stop=1.8, num=1001)
+    QD_AMPX = Sweep(name="qubitEF_pulse_amplitude", start=-1.8, stop=1.8, num=201)
     sweeps = [N, QD_AMPX]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################

@@ -87,6 +87,7 @@ if __name__ == "__main__":
     PHASE.axes = sweeps[1:]
     PHASE.datafn_args = {"delay": 2.792e-7, "freq": RR.int_freq}
     PHASE.plot = False
+    I.plot = False
     datasets = [I, Q, MAG, PHASE]
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################

@@ -60,7 +60,7 @@ if __name__ == "__main__":
     ################################### 1D SWEEP #######################################
 
     # set number of repetitions for this Experiment run
-    N.num = 10000
+    N.num = 2000
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "resonator_frequency"
