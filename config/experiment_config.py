@@ -13,7 +13,7 @@ MODES_CONFIG = FOLDER + "config/modes.yml"
 
 with Stage(MODES_CONFIG, remote=True) as stage:
     QUBIT, QUBITEF, RR, CAV = stage.get("qubit", "qubitEF", "rr", "cav")
-    LO_QUBIT, LO_RR, LO_CAV, SA = stage.get("lo_qubit", "lo_rr","lo_cav", "sa")
+    LO_QUBIT, LO_RR, LO_CAV, SA = stage.get("lo_qubit", "lo_rr", "lo_cav", "sa")
 (READOUT_PULSE,) = RR.get_operations("rr_readout_pulse")
 
 ################## DEFINE REUSABLE SWEEP (INDEPENDENT) VARIABLES #######################

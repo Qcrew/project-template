@@ -1,6 +1,6 @@
 - !<Qubit>
   name: qubit
-  int_freq: 7.975000E+07
+  int_freq: 7.960000E+07
   lo_name: lo_qubit
   mixer_offsets:
     I: 0.0070546144735999395
@@ -19,31 +19,31 @@
       total_length: 1000
     qubit_constant_pi_pulse: !<ConstantPulse>
       name: qubit_constant_pi_pulse
-      I_ampx: 0.064
+      I_ampx: 0.595
       Q_ampx: 0.0
       digital_marker: null
-      length: 500
+      length: 52
       pad: 0
-      total_I_amp: 0.0128
-      total_length: 500
+      total_I_amp: 0.119
+      total_length: 52
     qubit_constant_pi2_pulse: !<ConstantPulse>
       name: qubit_constant_pi2_pulse
+      I_ampx: 0.2975
+      Q_ampx: 0.0
+      digital_marker: null
+      length: 52
+      pad: 0
+      total_I_amp: 0.0595
+      total_length: 52
+    qubit_constant_selective_pi_pulse: !<ConstantPulse>
+      name: qubit_constant_selective_pi_pulse
       I_ampx: 0.032
       Q_ampx: 0.0
       digital_marker: null
-      length: 500
+      length: 1000
       pad: 0
       total_I_amp: 0.0064
-      total_length: 500
-    qubit_constant_selective_pi_pulse: !<ConstantPulse>
-      name: qubit_constant_selective_pi_pulse
-      I_ampx: 0.016
-      Q_ampx: 0.0
-      digital_marker: null
-      length: 2000
-      pad: 0
-      total_I_amp: 0.0032
-      total_length: 2000
+      total_length: 1000
     qubit_constant_very_selective_pi_pulse: !<ConstantPulse>
       name: qubit_constant_very_selective_pi_pulse
       I_ampx: 0.008
@@ -81,7 +81,7 @@
   rf_switch_on: false
 - !<Qubit>
   name: qubitEF
-  int_freq: -1.272000E+08
+  int_freq: -1.270000E+08
   lo_name: lo_qubit
   mixer_offsets:
     I: 0.0071526846615597595
@@ -91,13 +91,22 @@
   operations:
     qubitEF_constant_pulse: !<ConstantPulse>
       name: qubitEF_constant_pulse
-      I_ampx: 0.1
+      I_ampx: 0.0496
       Q_ampx: 0.0
       digital_marker: null
-      length: 5000
+      length: 500
       pad: 0
-      total_I_amp: 0.020000000000000004
-      total_length: 5000
+      total_I_amp: 0.00992
+      total_length: 500
+    qubitEF_constant_pi_pulse: !<ConstantPulse>
+      name: qubitEF_constant_pi_pulse
+      I_ampx: 0.467
+      Q_ampx: 0.0
+      digital_marker: null
+      length: 52
+      pad: 0
+      total_I_amp: 0.09340000000000001
+      total_length: 52
     qubitEF_gaussian_pulse: !<GaussianPulse>
       name: qubitEF_gaussian_pulse
       I_ampx: 0.032
@@ -163,17 +172,13 @@
         samples:
         - - 1
           - 0
-      has_optimized_weights: false
+      has_optimized_weights: true
       length: 2000
-      pad: 1000
-      threshold: null
+      pad: 600
+      threshold: 0.0004282540982746491
       total_I_amp: 0.05
-      total_length: 3000
-      weights:
-      - 1.0
-      - 0.0
-      - 0.0
-      - 1.0
+      total_length: 2600
+      weights: C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights/20230720_142024_opt_weights.npz
   ports:
     I: 3
     Q: 4
