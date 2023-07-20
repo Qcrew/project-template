@@ -52,8 +52,8 @@ if __name__ == "__main__":
                 I_ampx=0.25,
                 pad=600,
                 digital_marker=DigitalWaveform("ADC_ON"),
-                threshold= 0.0004282540982746491,
-                weights="C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights/20230720_142024_opt_weights.npz",
+                #threshold= 0.0004282540982746491,
+                #weights="C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights/20230720_142024_opt_weights.npz",
             ),
         ]
 

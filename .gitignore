@@ -133,3 +133,9 @@ dmypy.json
 
 data/
 *.bat
+*.npz
+*.png
+*.pdf
+*.svg
+*.jpg
+*.jpeg

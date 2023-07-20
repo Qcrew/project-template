@@ -60,13 +60,13 @@ if __name__ == "__main__":
     ################################### 1D SWEEP #######################################
 
     # set number of repetitions for this Experiment run
-    N.num = 2000
+    N.num = 10000
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "resonator_frequency"
     FREQ.start = 45e6
     FREQ.stop = 51e6
-    FREQ.num = 501
+    FREQ.num = 101
 
     # sweeps = [N, FREQ]
 
@@ -78,10 +78,11 @@ if __name__ == "__main__":
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
 
-    MAG.axes = sweeps[1:]
-    PHASE.axes = sweeps[1:]
     PHASE.inputs = ("I", "Q", "resonator_frequency")
     PHASE.datafn_args = {"delay": 2.792e-7}
+
+    I.save, Q.save, MAG.save, PHASE.save = False, False, False, False
+    I.plot, Q.plot, MAG.plot, PHASE.plot = True, True, True, True
 
     datasets = [I, Q, MAG, PHASE]
 

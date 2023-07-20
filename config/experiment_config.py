@@ -13,7 +13,7 @@ MODES_CONFIG = FOLDER + "config/modes.yml"
 
 with Stage(MODES_CONFIG, remote=True) as stage:
     QUBIT, QUBITEF, RR, CAV = stage.get("qubit", "qubitEF", "rr", "cav")
-    LO_QUBIT, LO_RR, LO_CAV, SA = stage.get("lo_qubit", "lo_rr", "lo_cav", "sa")
+    LO_QUBIT, LO_RR, LO_CAV = stage.get("lo_qubit", "lo_rr", "lo_cav")
 (READOUT_PULSE,) = RR.get_operations("rr_readout_pulse")
 
 ################## DEFINE REUSABLE SWEEP (INDEPENDENT) VARIABLES #######################
@@ -38,18 +38,14 @@ FREQ = Sweep(
 I = Dataset(
     name="I",
     save=False,
-    save_args={"save_avg": False},
     plot=True,
     # fitfn="exp_decay",
-    plot_args={"plot_err": False, "plot_avg": True},
 )
 
 Q = Dataset(
     name="Q",
     save=False,
-    save_args={"save_avg": False},
     plot=True,
-    plot_args={"plot_err": False, "plot_avg": True},
 )
 
 ADC = Dataset(
@@ -80,7 +76,6 @@ MAG = Dataset(
     plot=True,
     datafn="mag",
     # fitfn="exp_decay",
-    plot_args={"plot_err": False},
 )
 
 PHASE = Dataset(
@@ -90,5 +85,4 @@ PHASE = Dataset(
     datafn="phase",
     datafn_args={"delay": 2.792e-7, "freq": RR.int_freq, "unwrap": True},
     # fitfn="atan",
-    plot_args={"plot_err": False},
 )

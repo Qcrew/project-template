@@ -7,7 +7,7 @@ from qcore import Stage
 from qcore.instruments import QM
 from qcore.scripts.readout_training import ReadoutTrainer
 
-from config.experiment_config import MODES_CONFIG
+from config.experiment_config import MODES_CONFIG, FOLDER
 
 if __name__ == "__main__":
     """ """
@@ -20,14 +20,14 @@ if __name__ == "__main__":
         qm = QM(modes=(rr, qubit), oscillators=(lo_rr, lo_qubit))
 
         # Save file with today's date
-        date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_opt_weights.npz")
-        file_path = Path("C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights") / date_str
+        date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_weights.npz")
+        file_path = Path(FOLDER) / "config/weights" / date_str
 
         params = {
-            "reps": 50000,
+            "reps": 1000,
             "wait_time": 20000,  # ns
-            "readout_pulse": "readout_pulse",  # pulse name used to readout
-            "qubit_pi_pulse": "constant_pi_pulse",  # pulse name used to excite qubit
+            "readout_pulse": "rr_readout_pulse",  # pulse name used to readout
+            "qubit_pi_pulse": "qubit_constant_pi_pulse",  # pulse name used to excite qubit
             "weights_file_path": file_path,
         }
 

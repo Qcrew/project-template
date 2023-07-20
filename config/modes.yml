@@ -142,7 +142,7 @@
     Q: 0.0
     G: 0.17265625
     P: 0.03281250000000001
-    out: -0.011366410688920454
+    out: -0.020806603064903846
   operations:
     rr_constant_pulse: !<ConstantPulse>
       name: rr_constant_pulse
@@ -172,13 +172,17 @@
         samples:
         - - 1
           - 0
-      has_optimized_weights: true
+      has_optimized_weights: false
       length: 2000
       pad: 600
-      threshold: 0.0004282540982746491
+      threshold: null
       total_I_amp: 0.05
       total_length: 2600
-      weights: C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights/20230720_142024_opt_weights.npz
+      weights:
+      - 1.0
+      - 0.0
+      - 0.0
+      - 1.0
   ports:
     I: 3
     Q: 4

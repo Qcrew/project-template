@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
         rr, lo_rr = stage.get("rr", "lo_rr")
         
-        dc_offset_pulse_name = "readout_pulse"
+        dc_offset_pulse_name = "rr_readout_pulse"
 
         # Reset DC offset of readout mode to be calibrated
         to_update = {"out": 0.0}
