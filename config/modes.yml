@@ -172,17 +172,13 @@
         samples:
         - - 1
           - 0
-      has_optimized_weights: false
+      has_optimized_weights: true
       length: 2000
       pad: 600
-      threshold: null
+      threshold: 0.0006199882890940845
       total_I_amp: 0.05
       total_length: 2600
-      weights:
-      - 1.0
-      - 0.0
-      - 0.0
-      - 1.0
+      weights: C:\Users\qcrew\project-template\config\weights\20230720_181432_weights.npz
   ports:
     I: 3
     Q: 4

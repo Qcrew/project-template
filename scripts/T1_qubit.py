@@ -75,8 +75,6 @@ if __name__ == "__main__":
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
 
-    MAG.axes = sweeps[1:]
-    PHASE.axes = sweeps[1:]
     PHASE.datafn_args = {"delay": 2.792e-7, "freq": RR.int_freq}
     PHASE.plot = False
     datasets = [I, Q, MAG, PHASE]

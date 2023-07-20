@@ -17,7 +17,7 @@ if __name__ == "__main__":
         qm = QM(modes=(rr, qubit), oscillators=(lo_rr, lo_qubit))
 
         params = {
-            "reps": 1000,
+            "reps": 20000,
             "wait_time": 20000,  # ns
             "readout_pulse": "rr_readout_pulse",  # pulse name used to readout
             "qubit_pi_pulse": "qubit_constant_pi_pulse",  # pulse name used to excite qubit

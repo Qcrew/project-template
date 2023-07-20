@@ -75,7 +75,7 @@ MAG = Dataset(
     save=False,
     plot=True,
     datafn="mag",
-    # fitfn="exp_decay",
+    fitfn="exp_decay",
 )
 
 PHASE = Dataset(
