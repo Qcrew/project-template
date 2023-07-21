@@ -54,7 +54,6 @@ ADC = Dataset(
     save=False,
     plot=True,
     plot_args={
-        "plot_avg": True,
         "plot_type": "line",
         "plot_err": False,
         "xlabel": "Time (ns)",
@@ -75,7 +74,7 @@ MAG = Dataset(
     save=False,
     plot=True,
     datafn="mag",
-    fitfn="exp_decay",
+    #fitfn="exp_decay_sine",
 )
 
 PHASE = Dataset(

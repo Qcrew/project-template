@@ -15,9 +15,8 @@ if __name__ == "__main__":
         lo_rr, lo_qubit = stage.get("lo_rr", "lo_qubit")
 
         qm = QM(modes=(rr, qubit), oscillators=(lo_rr, lo_qubit))
-
         params = {
-            "reps": 20000,
+            "reps": 1000,
             "wait_time": 20000,  # ns
             "readout_pulse": "rr_readout_pulse",  # pulse name used to readout
             "qubit_pi_pulse": "qubit_constant_pi_pulse",  # pulse name used to excite qubit

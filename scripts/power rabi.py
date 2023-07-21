@@ -49,7 +49,7 @@ if __name__ == "__main__":
     # value: name of the Pulse as defined by the user in modes.yml
 
     pulses = {
-        "qubit_drive": "qubit_constant_selective_pi_pulse",
+        "qubit_drive": "qubit_constant_pi_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
 
@@ -73,9 +73,8 @@ if __name__ == "__main__":
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
-    MAG.fitfn = 'sine'
-    MAG.axes = sweeps[1:]
-    PHASE.axes = sweeps[1:]
+    I.fitfn, Q.fitfn, MAG.fitfn = "sine", "sine", "sine"
+
     PHASE.datafn_args = {"delay": 2.792e-7, "freq": RR.int_freq}
     # PHASE.plot = False
     datasets = [I, Q, MAG, PHASE]

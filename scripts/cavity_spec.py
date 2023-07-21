@@ -63,6 +63,7 @@ if __name__ == "__main__":
     parameters = {
         "wait_time": 1000000,
         "ro_ampx": 1,
+        "fetch_interval": 5,
     }
 
     ######################## SWEEP (INDEPENDENT) VARIABLES #############################
@@ -70,21 +71,20 @@ if __name__ == "__main__":
     # must include all primary sweeps defined by the Experiment subclass
 
     # set number of repetitions for this Experiment run
-    N.num = 50000
+    N.num = 4
 
     # set the qubit frequency sweep for this Experiment run
     FREQ.name = "cavity_frequency"
     FREQ.start = 60e6
     FREQ.stop = 80e6
-    FREQ.step = 0.01e6
+    FREQ.num = 1001
 
     sweeps = [N, FREQ]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
-    MAG.fitfn = 'gaussian'
-    MAG.axes = sweeps[1:]
-    PHASE.axes = sweeps[1:]
+    # MAG.fitfn = "gaussian"
+
     PHASE.datafn_args = {"delay": 2.792e-7, "freq": RR.int_freq}
     PHASE.plot = False
     datasets = [I, Q, MAG, PHASE]

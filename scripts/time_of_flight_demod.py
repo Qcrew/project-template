@@ -44,7 +44,7 @@ if __name__ == "__main__":
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 50000,
+        "wait_time": 10000,
         "ro_ampx": 1.0,
         "qd_ampx": 1.0,
         "fetch_interval": 3,
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     # NOTE expts streaming raw adc data e.g. time of flight do not support >= 2D sweeps
 
     # set number of repetitions for this Experiment run
-    N.num = 50000
+    N.num = 800
 
     sweeps = [N]
 
@@ -74,7 +74,10 @@ if __name__ == "__main__":
         step=1 / READOUT_PULSE.total_length,
         units="GHz",
     )
-    ADC_FFT.initialize(axes=[freqs])
+    freqs.initialize()
+    N.initialize()
+
+    ADC_FFT.initialize(axes=[N, freqs])
 
     ADC_DEMOD = Dataset(
         name="adc_demod",

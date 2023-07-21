@@ -55,14 +55,14 @@ if __name__ == "__main__":
 
     pulses = {
         "cavity_drive": "cavity_constant_pulse",
-        "qubit_pulse": "qubit_constant_pulse",
+        "qubit_pulse": "qubit_constant_selective_pi_pulse",
         "readout_pulse": "rr_readout_pulse",
     }
 
     ############################## CONTROL PARAMETERS ##################################
 
     parameters = {
-        "wait_time": 1000000,
+        "wait_time": 2000000,
         "ro_ampx": 1,
     }
 
@@ -78,8 +78,8 @@ if __name__ == "__main__":
     ######################## DATASET (DEPENDENT) VARIABLES #############################
     # must include all primary datasets defined by the Experiment subclass
 
-    MAG.axes = sweeps[1:]
-    PHASE.axes = sweeps[1:]
+    MAG.fitfn = "displacement_cal"
+    
     PHASE.datafn_args = {"delay": 2.792e-7, "freq": RR.int_freq}
     PHASE.plot = False
     datasets = [I, Q, MAG, PHASE]

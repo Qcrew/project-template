@@ -81,9 +81,8 @@ if __name__ == "__main__":
     PHASE.inputs = ("I", "Q", "resonator_frequency")
     PHASE.datafn_args = {"delay": 2.792e-7}
 
-    I.save, Q.save, MAG.save, PHASE.save = False, False, False, False
-    I.plot, Q.plot, MAG.plot, PHASE.plot = True, True, True, True
-
+    MAG.fitfn = "lorentzian"
+    
     datasets = [I, Q, MAG, PHASE]
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################

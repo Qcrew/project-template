@@ -49,7 +49,7 @@ if __name__ == "__main__":
     # NOTE expts streaming raw adc data e.g. time of flight do not support >= 2D sweeps
 
     # set number of repetitions for this Experiment run
-    N.num = 10000
+    N.num = 200
     sweeps = [N]
 
     ######################## DATASET (DEPENDENT) VARIABLES #############################
@@ -65,7 +65,9 @@ if __name__ == "__main__":
         step=1 / READOUT_PULSE.total_length,
         units="GHz",
     )
-    ADC_FFT.initialize(axes=[freqs.sweep])
+    freqs.initialize()
+    N.initialize()
+    ADC_FFT.initialize(axes=[N, freqs])
     datasets = [ADC, ADC_FFT]
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################

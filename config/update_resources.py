@@ -48,12 +48,12 @@ if __name__ == "__main__":
             ),
             ConstantReadoutPulse(
                 name="rr_readout_pulse",
-                length=2000,
+                length=2000,  # 2000,
                 I_ampx=0.25,
                 pad=600,
                 digital_marker=DigitalWaveform("ADC_ON"),
-                #threshold= 0.0004282540982746491,
-                #weights="C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights/20230720_142024_opt_weights.npz",
+                # threshold= 0.0004282540982746491,
+                # weights="C:/Users/qcrew/Desktop/qcrew/qcrew/config/weights/20230720_142024_opt_weights.npz",
             ),
         ]
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
             ConstantPulse(
                 name="qubit_constant_pi2_pulse",
                 length=52,
-                I_ampx=0.595/2,
+                I_ampx=0.595 / 2,
             ),
             ConstantPulse(
                 name="qubit_constant_selective_pi_pulse",
@@ -118,7 +118,7 @@ if __name__ == "__main__":
             # int_freq=-191.11e6,
             # int_freq=-88.20e6,
             # int_freq=-125.45e6,
-            int_freq = -127e6
+            int_freq=-127e6,
         )
 
         qubitEF.operations = [
@@ -129,7 +129,7 @@ if __name__ == "__main__":
             ),
             ConstantPulse(
                 name="qubitEF_constant_pi_pulse",
-                length = 52,
+                length=52,
                 I_ampx=0.467,
             ),
             GaussianPulse(
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         cav.operations = [
             ConstantPulse(
                 name="cavity_constant_pulse",
-                length=2000,
+                length=1000,
                 I_ampx=0.2,
             ),
             GaussianPulse(
