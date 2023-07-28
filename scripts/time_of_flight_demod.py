@@ -86,7 +86,7 @@ if __name__ == "__main__":
         datafn_args={"freq": RR.int_freq, "length": READOUT_PULSE.total_length},
         plot_args={"plot_type": "line", "plot_err": False},
     )
-    ADC_DEMOD.initialize(axes=[2, READOUT_PULSE.total_length])  # 1: real, 2: imag
+    ADC_DEMOD.initialize(axes=[N, 2, READOUT_PULSE.total_length])  # 1: real, 2: imag
     datasets = [ADC, ADC_FFT, ADC_DEMOD]
 
     ######################## INITIALIZE AND RUN EXPERIMENT #############################
